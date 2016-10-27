@@ -3,23 +3,33 @@
  */
 import {Component} from "@angular/core";
 import {Http} from "@angular/http";
-import {NavController} from "ionic-angular";
+import {NavController, ToastController} from "ionic-angular";
 import {Config} from "../../shared/config";
+import {HomePage} from "../home/home";
 @Component({
-    templateUrl: 'login.html'
+  templateUrl: 'login.html'
 })
 
 export class LoginPage {
-    name:string;
-    password:string;
+  nameOrMobile: string;
+  password: string;
 
-    constructor(private navCtrl:NavController, private http:Http) {
-    }
+  constructor(private nav: NavController, private http: Http, private toast: ToastController) {
+  }
 
-    login() {
-        this.http.post(Config.apiUrl + '/login',{nameOrMobile:this.name,password:this.password}).subscribe((res)=> {
-            console.log(res.ok);
-        });
-        // this.navCtrl.push(HomePage);
-    }
+  login() {
+    this.http.post(Config.apiUrl + '/login', {nameOrMobile: this.nameOrMobile, password: this.password}).subscribe((res)=> {
+      let result = res.json();
+      if (result.code) {
+        this.nav.push(HomePage);
+      }else {
+        this.toast.create({
+          message: result.msg,
+          duration: 1500,
+          position: 'middle'
+        }).present();
+      }
+    });
+
+  }
 }
