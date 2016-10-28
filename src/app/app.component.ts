@@ -6,13 +6,17 @@ import {HomePage} from "../pages/home/home";
 
 
 @Component({
-  template: `<ion-nav [root]="rootPage"></ion-nav>`
+  template: `
+<ion-nav *ngIf="rememberMe == 'true'" [root]="rootPage"></ion-nav>
+<ion-nav *ngIf="rememberMe != 'true'" [root]="rootPage" swipeBackEnabled="false"></ion-nav>
+`
 })
 export class MyApp {
   rememberMe = localStorage.getItem('rememberMe');
   rootPage: any;
 
   constructor(platform: Platform) {
+    console.log(this.rememberMe);
     if (this.rememberMe == 'true') {
       this.rootPage = HomePage;
     } else {

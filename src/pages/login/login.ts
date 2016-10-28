@@ -8,14 +8,16 @@ import {ConfigUtil} from "../../shared/config.util";
 import {HomePage} from "../home/home";
 import {ToastUtil} from "../../shared/toast.util";
 @Component({
-  templateUrl: 'login.html'
+  templateUrl: 'login.html',
+  providers:[ToastUtil]
 })
 
 export class LoginPage {
-  nameOrMobile: string;
-  password: string;
+  nameOrMobile: string = '';
+  password: string = '';
 
   constructor(private nav: NavController, private http: Http, private toast: ToastUtil) {
+
   }
 
   login() {

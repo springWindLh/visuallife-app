@@ -1,15 +1,13 @@
-
-<ion-list>
+<form>
   <img>
   <ion-item>
     <ion-label floating>用户名</ion-label>
-    <ion-input type="text" [(ngModel)]="nameOrMobile"></ion-input>
+    <ion-input type="text" [(ngModel)]="nameOrMobile" name="nameOrMobile"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label floating>密码</ion-label>
-    <ion-input type="password" [(ngModel)]="password"></ion-input>
+    <ion-input type="password" [(ngModel)]="password" name="password"></ion-input>
   </ion-item>
-</ion-list>
 <br>
 <button ion-button block (click)="login()">登&nbsp;录</button>
-
+</form>

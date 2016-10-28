@@ -2,10 +2,10 @@
   <ion-card *ngFor="let article of articles">
     <ion-item>
       <ion-avatar item-left>
-        <img src="article.coverImg">
+        <img [src]="article.coverImg">
       </ion-avatar>
       <h2>{{article.title}}</h2>
-      <p>{{article.content}}</p>
+      <p>{{article.summarize}}</p>
     </ion-item>
   </ion-card>
 

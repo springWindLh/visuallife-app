@@ -1,7 +1,9 @@
 import {ToastController} from "ionic-angular";
+import {Injectable} from "@angular/core";
 /**
  * Created by lh on 2016/10/28.
  */
+@Injectable()
 export class ToastUtil{
   constructor(private toast:ToastController){
 
