@@ -1,0 +1,15 @@
+<ion-content>
+  <ion-card *ngFor="let article of articles">
+    <ion-item>
+      <ion-avatar item-left>
+        <img src="article.coverImg">
+      </ion-avatar>
+      <h2>{{article.title}}</h2>
+      <p>{{article.content}}</p>
+    </ion-item>
+  </ion-card>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

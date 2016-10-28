@@ -3,9 +3,10 @@
  */
 import {Component} from "@angular/core";
 import {Http} from "@angular/http";
-import {NavController, ToastController} from "ionic-angular";
-import {Config} from "../../shared/config";
+import {NavController} from "ionic-angular";
+import {ConfigUtil} from "../../shared/config.util";
 import {HomePage} from "../home/home";
+import {ToastUtil} from "../../shared/toast.util";
 @Component({
   templateUrl: 'login.html'
 })
@@ -14,20 +15,20 @@ export class LoginPage {
   nameOrMobile: string;
   password: string;
 
-  constructor(private nav: NavController, private http: Http, private toast: ToastController) {
+  constructor(private nav: NavController, private http: Http, private toast: ToastUtil) {
   }
 
   login() {
-    this.http.post(Config.apiUrl + '/login', {nameOrMobile: this.nameOrMobile, password: this.password}).subscribe((res)=> {
+    this.http.post(ConfigUtil.apiUrl + '/login', {
+      nameOrMobile: this.nameOrMobile,
+      password: this.password
+    }).subscribe((res)=> {
       let result = res.json();
       if (result.code) {
+        localStorage.setItem('rememberMe', 'true');
         this.nav.push(HomePage);
-      }else {
-        this.toast.create({
-          message: result.msg,
-          duration: 1500,
-          position: 'middle'
-        }).present();
+      } else {
+        this.toast.show(result.msg);
       }
     });
 

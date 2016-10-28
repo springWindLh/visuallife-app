@@ -1,5 +1,5 @@
 import {Headers, RequestOptions} from "@angular/http";
-export class Config {
+export class ConfigUtil {
   static apiUrl = "http://localhost:8083/api";
   static token = "";
 
