@@ -5,11 +5,14 @@ import {LoginPage} from "../pages/login/login";
 import {HomePage} from "../pages/home/home";
 import {ArticleListPage} from "../pages/article/list/list";
 import {ArticleDetailPage} from "../pages/article/detail/detail";
+import {StoryListPage} from "../pages/story/list/list";
+import {StoryDetailPage} from "../pages/story/detail/detail";
 
 @NgModule({
   declarations: [
     MyApp,
-    LoginPage,HomePage,ArticleListPage,ArticleDetailPage
+    LoginPage,HomePage,ArticleListPage,ArticleDetailPage,
+    StoryListPage,StoryDetailPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -17,7 +20,8 @@ import {ArticleDetailPage} from "../pages/article/detail/detail";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    LoginPage,HomePage,ArticleListPage,ArticleDetailPage
+    LoginPage,HomePage,ArticleListPage,ArticleDetailPage,
+    StoryListPage,StoryDetailPage
   ],
   providers: []
 })

@@ -16,7 +16,7 @@ export class ArticleDetailPage {
 
   constructor(private params: NavParams, private articleService: ArticleService) {
     this.article = this.articleService.detail(params.get('id')).subscribe(
-      data=>{this.article = data,console.log(data)},
+      data=>this.article = data,
       error=>alert(ConfigUtil.networkError)
     );
   }
