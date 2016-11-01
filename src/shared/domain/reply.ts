@@ -6,9 +6,6 @@ export class Reply {
   private _accepterId: number;
   private _content: string;
 
-  constructor() {
-  }
-
   constructor(commentId: number, accepterId: number, content: string) {
     this._commentId = commentId;
     this._accepterId = accepterId;

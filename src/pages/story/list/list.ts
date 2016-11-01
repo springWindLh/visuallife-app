@@ -28,16 +28,20 @@ export class StoryListPage {
   }
 
   doInfinite(infiniteScroll) {
-    if (!this.isLastPage) {
-      this.query.page += 1;
-      this.storyService.list(this.query).subscribe(
-        data => {
-          this.stories = this.stories.concat(data.content);
-          infiniteScroll.complete();
-        },
-        error=>alert(ConfigUtil.networkError)
-      );
-    }
+    setTimeout(()=>{
+      if (!this.isLastPage) {
+        this.query.page += 1;
+        this.storyService.list(this.query).subscribe(
+          data => {
+            this.stories = this.stories.concat(data.content);
+            infiniteScroll.complete();
+          },
+          error=>alert(ConfigUtil.networkError)
+        );
+      }else{
+        infiniteScroll.complete();
+      }
+    },1000);
   }
 
   toStoryDetailPage(id: number) {

@@ -12,10 +12,8 @@ export class CommentService {
   }
 
   list(query: Query, targetType: string, targetId: number) {
-    let map = new Map();
-    map.set('targetType', targetType);
-    map.set('targetId', targetId);
-    return this.http.get(ConfigUtil.apiUrl + '/comment/list', {search: PageUtil.getPageParams(query), map})
+    let params = PageUtil.getPageParams(query);
+    return this.http.get(ConfigUtil.apiUrl + '/comment/list', {search: params})
       .map(res=>res.json().data);
   }
 

@@ -10,12 +10,11 @@ import {Reply} from "../../shared/domain/reply";
 @Component({
   selector: 'comment-page',
   templateUrl: 'comment.html',
-  providers: [CommentService],
-  inputs: ['targetType']
+  providers: [CommentService]
 })
 export class CommentPage {
-  @Input() targetType: string;
-  @Input() targetId: number;
+  @Input() targetType:string;
+  @Input() targetId:number;
   comment: Comment = new Comment(this.targetType, this.targetId, '');
   reply:Reply;
   comments = [];
@@ -23,7 +22,7 @@ export class CommentPage {
   isLastPage = false;
 
   constructor(private commentService: CommentService) {
-    this.commentService.list(this.query).subscribe(
+    this.commentService.list(this.query,this.targetType,this.targetId).subscribe(
       data=> {
         this.comments = data.content;
         this.isLastPage = data.last;
@@ -35,7 +34,7 @@ export class CommentPage {
   doInfinite(infiniteScroll) {
     if (!this.isLastPage) {
       this.query.page += 1;
-      this.commentService.list(this.query).subscribe(
+      this.commentService.list(this.query,this.targetType,this.targetId).subscribe(
         data => {
           this.comments = this.comments.concat(data.content);
           infiniteScroll.complete();

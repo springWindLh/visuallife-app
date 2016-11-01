@@ -8,9 +8,6 @@ export class Comment {
   private _targetId: number;
   private _content: string;
 
-  constructor() {
-  }
-
   constructor(targetType: string, targetId: number, content: string) {
     this._targetType = targetType;
     this._targetId = targetId;
