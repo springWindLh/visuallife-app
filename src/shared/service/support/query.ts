@@ -3,7 +3,7 @@
  */
 export class Query{
   private _page: number = 0;
-  private _size: number = 10;
+  private _size: number = 20;
 
   constructor(page: number, size: number) {
     this._page = page;

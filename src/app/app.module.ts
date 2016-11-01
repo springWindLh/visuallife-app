@@ -7,10 +7,12 @@ import {ArticleListPage} from "../pages/article/list/list";
 import {ArticleDetailPage} from "../pages/article/detail/detail";
 import {StoryListPage} from "../pages/story/list/list";
 import {StoryDetailPage} from "../pages/story/detail/detail";
+import {SafeHtmlPipe} from "../shared/pipe/safehtml.pipe";
 
 @NgModule({
   declarations: [
     MyApp,
+    SafeHtmlPipe,
     LoginPage,HomePage,ArticleListPage,ArticleDetailPage,
     StoryListPage,StoryDetailPage
   ],

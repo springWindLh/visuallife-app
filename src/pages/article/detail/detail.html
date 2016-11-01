@@ -3,5 +3,5 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-    <div [innerHTML]="article.content"></div>
+    <div [innerHTML]="article.content | safeHtml"></div>
 </ion-content>
