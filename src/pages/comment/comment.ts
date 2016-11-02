@@ -1,5 +1,5 @@
 import {CommentService} from "../../shared/service/comment.service";
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {Query} from "../../shared/service/support/query";
 import {ConfigUtil} from "../../shared/config.util";
 import {Comment} from "../../shared/domain/comment";
@@ -12,19 +12,27 @@ import {Reply} from "../../shared/domain/reply";
   templateUrl: 'comment.html',
   providers: [CommentService]
 })
-export class CommentPage {
+export class CommentPage{
   @Input() targetType:string;
   @Input() targetId:number;
-  comment: Comment = new Comment(this.targetType, this.targetId, '');
+  comment: Comment;
   reply:Reply;
   comments = [];
   query = new Query(0, 20);
   isLastPage = false;
 
   constructor(private commentService: CommentService) {
+
+  }
+
+  ngOnInit(){
+    console.log(this.targetType);
+    console.log(this.targetId);
+    this.comment = new Comment(this.targetType, this.targetId, '');
     this.commentService.list(this.query,this.targetType,this.targetId).subscribe(
       data=> {
         this.comments = data.content;
+        console.log(data);
         this.isLastPage = data.last;
       },
       error=>alert(ConfigUtil.networkError)

@@ -1,33 +1,32 @@
-<ion-content class="list-avatar-page">
+
   <ion-list>
     <ion-list-header>
       评论（{{comments.length}}）
     </ion-list-header>
 
-    <ion-item *ngFor="let comment of comments">
+    <ion-item *ngFor="let com of comments">
       <ion-avatar item-left>
-        <img src="comment.avatar">
+        <img src="com.avatar">
       </ion-avatar>
-      <h2>{{comment.user.avatar}}</h2>
-      <p>{{comment.content}}</p>
+      <h2>{{com.user.name}}</h2>
+      <p>{{com.content}}</p>
       <ion-row>
         <ion-col text-left>
-          {{comment.createdTime}}
+          <small>{{com.createdTime}}</small>
         </ion-col>
         <ion-col text-center>
           <ion-icon name="thumbs-up"></ion-icon>
-          <span *ngIf="comment.vote>0">&nbsp;{{comment.vote}}</span>
+          <span *ngIf="comment.vote>0">&nbsp;{{com.vote}}</span>
         </ion-col>
       </ion-row>
     </ion-item>
   </ion-list>
-</ion-content>
 
 <ion-footer>
   <ion-toolbar>
-    <ion-input type="text" placeholder="我想说……"></ion-input>
-    <ion-buttons>
-      <button ion-button>发表<ion-icon name="send"></ion-icon></button>
+    <ion-input type="text" [(ngModel)]="comment.content" placeholder="我想说……"></ion-input>
+    <ion-buttons end>
+      <button [disabled]="comment.content == ''" (click)="saveComment()" ion-button><ion-icon name="send"></ion-icon></button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

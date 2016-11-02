@@ -4,5 +4,5 @@
 </ion-header>
 <ion-content padding>
     <div [innerHTML]="article.content | safeHtml"></div>
-  <comment-page [targetType]="ARTICLE" [targetId]="article.id"></comment-page>
+  <comment-page [targetType]="'ARTICLE'" [targetId]="articleId"></comment-page>
 </ion-content>

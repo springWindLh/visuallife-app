@@ -9,19 +9,19 @@ import {CommentPage} from "../../comment/comment";
 @Component({
   selector:'article-detail-page',
   templateUrl:'detail.html',
-  providers:[ArticleService],
-  directives:[CommentPage]
+  providers:[ArticleService]
 })
 
 export class ArticleDetailPage {
   article: any;
+  articleId:number;
 
   constructor(private params: NavParams, private articleService: ArticleService) {
-    this.article = this.articleService.detail(params.get('id')).subscribe(
+    this.articleId = params.get('id');
+    this.article = this.articleService.detail(this.articleId).subscribe(
       data=>this.article = data,
       error=>alert(ConfigUtil.networkError)
     );
   }
-
 
 }

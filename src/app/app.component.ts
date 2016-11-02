@@ -3,6 +3,9 @@ import {Platform} from "ionic-angular";
 import {StatusBar, Splashscreen} from "ionic-native";
 import {LoginPage} from "../pages/login/login";
 import {HomePage} from "../pages/home/home";
+import {Http} from "@angular/http";
+import {ConfigUtil} from "../shared/config.util";
+import {ToastUtil} from "../shared/toast.util";
 
 
 @Component({
@@ -13,12 +16,27 @@ import {HomePage} from "../pages/home/home";
 })
 export class MyApp {
   rememberMe = localStorage.getItem('rememberMe');
+  nameOrMobile = localStorage.getItem('nameOrMobile');
+  password = localStorage.getItem('password');
   rootPage: any;
 
-  constructor(platform: Platform) {
-    console.log(this.rememberMe);
+  constructor(platform: Platform,http:Http,toast:ToastUtil) {
     if (this.rememberMe == 'true') {
-      this.rootPage = HomePage;
+      http.post(ConfigUtil.apiUrl + '/login', {
+        nameOrMobile: this.nameOrMobile,
+        password: this.password
+      }).subscribe(
+        res=>{
+          let result = res.json();
+          if(result.code){
+            this.rootPage = HomePage;
+          }else{
+            toast.show(result.msg);
+          }
+        },
+        error=>alert(ConfigUtil.networkError)
+      );
+
     } else {
       this.rootPage = LoginPage;
     }

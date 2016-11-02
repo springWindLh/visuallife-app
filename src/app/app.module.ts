@@ -8,13 +8,14 @@ import {ArticleDetailPage} from "../pages/article/detail/detail";
 import {StoryListPage} from "../pages/story/list/list";
 import {StoryDetailPage} from "../pages/story/detail/detail";
 import {SafeHtmlPipe} from "../shared/pipe/safehtml.pipe";
+import {CommentPage} from "../pages/comment/comment";
 
 @NgModule({
   declarations: [
     MyApp,
     SafeHtmlPipe,
     LoginPage,HomePage,ArticleListPage,ArticleDetailPage,
-    StoryListPage,StoryDetailPage
+    StoryListPage,StoryDetailPage,CommentPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)

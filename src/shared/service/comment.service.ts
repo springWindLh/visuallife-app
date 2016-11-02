@@ -4,15 +4,19 @@ import {ConfigUtil} from "../config.util";
 import {PageUtil} from "../page.util";
 import {Comment} from "../domain/comment";
 import {Reply} from "../domain/reply";
+import {Injectable} from "@angular/core";
 /**
  * Created by lh on 2016/11/1.
  */
+@Injectable()
 export class CommentService {
   constructor(private http: Http) {
   }
 
   list(query: Query, targetType: string, targetId: number) {
     let params = PageUtil.getPageParams(query);
+    params.set('targetType', targetType);
+    params.set('targetId', targetId.toString());
     return this.http.get(ConfigUtil.apiUrl + '/comment/list', {search: params})
       .map(res=>res.json().data);
   }
