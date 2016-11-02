@@ -12,9 +12,11 @@ import {ToastUtil} from "../shared/toast.util";
   template: `
 <ion-nav *ngIf="rememberMe == 'true'" [root]="rootPage"></ion-nav>
 <ion-nav *ngIf="rememberMe != 'true'" [root]="rootPage" swipeBackEnabled="false"></ion-nav>
-`
+`,
+  providers:[ToastUtil]
 })
 export class MyApp {
+  // a = localStorage.clear();
   rememberMe = localStorage.getItem('rememberMe');
   nameOrMobile = localStorage.getItem('nameOrMobile');
   password = localStorage.getItem('password');

@@ -9,11 +9,12 @@ import {StoryListPage} from "../pages/story/list/list";
 import {StoryDetailPage} from "../pages/story/detail/detail";
 import {SafeHtmlPipe} from "../shared/pipe/safehtml.pipe";
 import {CommentPage} from "../pages/comment/comment";
+import {ShortTimePipe} from "../shared/pipe/shorttime.pipe";
 
 @NgModule({
   declarations: [
     MyApp,
-    SafeHtmlPipe,
+    SafeHtmlPipe,ShortTimePipe,
     LoginPage,HomePage,ArticleListPage,ArticleDetailPage,
     StoryListPage,StoryDetailPage,CommentPage
   ],

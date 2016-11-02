@@ -1,5 +1,5 @@
 import {CommentService} from "../../shared/service/comment.service";
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {Query} from "../../shared/service/support/query";
 import {ConfigUtil} from "../../shared/config.util";
 import {Comment} from "../../shared/domain/comment";
@@ -12,11 +12,11 @@ import {Reply} from "../../shared/domain/reply";
   templateUrl: 'comment.html',
   providers: [CommentService]
 })
-export class CommentPage{
-  @Input() targetType:string;
-  @Input() targetId:number;
+export class CommentPage {
+  @Input() targetType: string;
+  @Input() targetId: number;
   comment: Comment;
-  reply:Reply;
+  reply: Reply;
   comments = [];
   query = new Query(0, 20);
   isLastPage = false;
@@ -25,11 +25,11 @@ export class CommentPage{
 
   }
 
-  ngOnInit(){
+  ngOnInit() {
     console.log(this.targetType);
     console.log(this.targetId);
     this.comment = new Comment(this.targetType, this.targetId, '');
-    this.commentService.list(this.query,this.targetType,this.targetId).subscribe(
+    this.commentService.list(this.query, this.targetType, this.targetId).subscribe(
       data=> {
         this.comments = data.content;
         console.log(data);
@@ -42,7 +42,7 @@ export class CommentPage{
   doInfinite(infiniteScroll) {
     if (!this.isLastPage) {
       this.query.page += 1;
-      this.commentService.list(this.query,this.targetType,this.targetId).subscribe(
+      this.commentService.list(this.query, this.targetType, this.targetId).subscribe(
         data => {
           this.comments = this.comments.concat(data.content);
           infiniteScroll.complete();
@@ -59,7 +59,7 @@ export class CommentPage{
     )
   }
 
-  saveReply(commentId:number,accepterId:number,content:string,replies:any[]){
+  saveReply(commentId: number, accepterId: number, content: string, replies: any[]) {
     this.reply = new Reply(commentId, accepterId, content);
     this.commentService.addReply(this.reply).subscribe(
       data=>replies.push(data),

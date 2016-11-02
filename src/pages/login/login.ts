@@ -9,7 +9,7 @@ import {HomePage} from "../home/home";
 import {ToastUtil} from "../../shared/toast.util";
 @Component({
   templateUrl: 'login.html',
-  providers:[ToastUtil]
+  providers: [ToastUtil]
 })
 
 export class LoginPage {
@@ -28,6 +28,8 @@ export class LoginPage {
       let result = res.json();
       if (result.code) {
         localStorage.setItem('rememberMe', 'true');
+        localStorage.setItem('nameOrMobile', this.nameOrMobile);
+        localStorage.setItem('password', this.password);
         this.nav.push(HomePage);
       } else {
         this.toast.show(result.msg);
