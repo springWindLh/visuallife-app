@@ -1,4 +1,4 @@
-<form>
+<form #loginForm="ngForm">
   <img>
   <ion-item>
     <ion-label floating>用户名</ion-label>
@@ -9,5 +9,5 @@
     <ion-input type="password" [(ngModel)]="password" name="password"></ion-input>
   </ion-item>
 <br>
-<button ion-button block (click)="login()">登&nbsp;录</button>
+<button ion-button block (click)="login()" [disabled]="!loginForm.form.valid">登&nbsp;录</button>
 </form>

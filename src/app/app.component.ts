@@ -31,6 +31,7 @@ export class MyApp {
         res=>{
           let result = res.json();
           if(result.code){
+            ConfigUtil.user = result.data;
             this.rootPage = HomePage;
           }else{
             toast.show(result.msg);

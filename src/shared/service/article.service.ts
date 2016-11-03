@@ -4,6 +4,7 @@ import {ConfigUtil} from "../config.util";
 import {PageUtil} from "../page.util";
 import {Query} from "./support/query";
 import 'rxjs/Rx';
+import {Observable} from "rxjs";
 /**
  * Created by lh on 2016/10/28.
  */
@@ -14,12 +15,12 @@ export class ArticleService {
   constructor(private http: Http) {
   }
 
-  list(query: Query){
+  list(query: Query):Observable<any>{
     return this.http.get(ConfigUtil.apiUrl + '/article/list', {search: PageUtil.getPageParams(query)})
       .map(res=>res.json().data);
   }
 
-  detail(id:number){
+  detail(id:number):Observable<any>{
     return this.http.get(ConfigUtil.apiUrl + '/article/'+id)
       .map(res=>res.json().data);
   }

@@ -3,6 +3,7 @@ import {PageUtil} from "../page.util";
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 import {Query} from "./support/query";
+import {Observable} from "rxjs";
 /**
  * Created by lh on 2016/10/31.
  */
@@ -13,12 +14,12 @@ export class StoryService {
   constructor(private http: Http) {
   }
 
-  list(query: Query) {
+  list(query: Query):Observable<any> {
     return this.http.get(ConfigUtil.apiUrl + '/story/list', {search: PageUtil.getPageParams(query)})
       .map(res=>res.json().data);
   }
 
-  detail(id: number) {
+  detail(id: number):Observable<any> {
     return this.http.get(ConfigUtil.apiUrl + '/story/' + id)
       .map(res=>res.json().data);
   }

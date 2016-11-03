@@ -30,6 +30,7 @@ export class LoginPage {
         localStorage.setItem('rememberMe', 'true');
         localStorage.setItem('nameOrMobile', this.nameOrMobile);
         localStorage.setItem('password', this.password);
+        ConfigUtil.user = result.data;
         this.nav.push(HomePage);
       } else {
         this.toast.show(result.msg);

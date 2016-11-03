@@ -4,9 +4,9 @@
 export class Comment {
   static ARTICLE = 'ARTICLE';
   static STORY = 'STORY';
-  private targetType: string;
-  private targetId: number;
-  private content: string;
+  targetType: string;
+  targetId: number;
+  content: string;
 
   constructor(targetType: string, targetId: number, content: string) {
     this.targetType = targetType;
