@@ -17,6 +17,7 @@ export class ShortTimePipe implements PipeTransform {
     let day = 60 * 60 * 60;
     if (spacing >= 0 && spacing < 60) {
       return '刚刚';
+
     } else if (spacing >= minute && spacing < hour) {
       return Math.floor(spacing / minute) + '分钟前';
     } else if (spacing >= hour && spacing < day) {
