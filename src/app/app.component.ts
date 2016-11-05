@@ -10,8 +10,7 @@ import {ToastUtil} from "../shared/toast.util";
 
 @Component({
   template: `
-<ion-nav *ngIf="rememberMe == 'true'" [root]="rootPage"></ion-nav>
-<ion-nav *ngIf="rememberMe != 'true'" [root]="rootPage" swipeBackEnabled="false"></ion-nav>
+<ion-nav [root]="rootPage" [swipeBackEnabled]="false"></ion-nav>
 `,
   providers:[ToastUtil]
 })
@@ -32,6 +31,7 @@ export class MyApp {
           let result = res.json();
           if(result.code){
             ConfigUtil.user = result.data;
+            localStorage.setItem('rememberMe', 'true');
             this.rootPage = HomePage;
           }else{
             toast.show(result.msg);
