@@ -1,5 +1,4 @@
 import {PipeTransform, Pipe} from "@angular/core";
-import DateTimeFormat = Intl.DateTimeFormat;
 /**
  * Created by lh on 2016/11/2.
  */
@@ -24,7 +23,7 @@ export class ShortTimePipe implements PipeTransform {
     } else if (spacing >= day && spacing < 7 * day) {
       return Math.floor(spacing / day) + '天前';
     } else {
-      return Intl.DateTimeFormat('yyyy/MM/dd HH:mm').format(time);
+      return new Intl.DateTimeFormat('yyyy/MM/dd HH:mm').format(time);
     }
   }
 }
