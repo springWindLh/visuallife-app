@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {Query} from "../../../shared/service/support/query";
-import {NavController} from "ionic-angular";
+import {NavController, LoadingController, Loading} from "ionic-angular";
 import {ConfigUtil} from "../../../shared/config.util";
 import {StoryService} from "../../../shared/service/story.service";
 import {StoryDetailPage} from "../detail/detail";
@@ -16,10 +16,17 @@ export class StoryListPage {
   stories = [];
   query = new Query(0, 20);
   isLastPage = false;
+  loading:Loading;
 
-  constructor(private storyService: StoryService, private nav: NavController) {
+  constructor(private storyService: StoryService, private nav: NavController,
+              private load: LoadingController) {
+    this.loading = load.create({
+      content:'loading...'
+    });
+    this.loading.present();
     storyService.list(this.query).subscribe(
       data => {
+        this.loading.dismissAll();
         this.stories = data.content;
         this.isLastPage = data.last;
       },
@@ -38,9 +45,8 @@ export class StoryListPage {
           },
           error=>alert(ConfigUtil.networkError)
         );
-      }else{
-        infiniteScroll.complete();
       }
+        infiniteScroll.complete();
     },1000);
   }
 

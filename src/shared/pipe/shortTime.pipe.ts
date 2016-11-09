@@ -23,7 +23,7 @@ export class ShortTimePipe implements PipeTransform {
     } else if (spacing >= day && spacing < 7 * day) {
       return Math.floor(spacing / day) + '天前';
     } else {
-      return new Intl.DateTimeFormat('yyyy/MM/dd HH:mm').format(time);
+      return time.toLocaleDateString();
     }
   }
 }

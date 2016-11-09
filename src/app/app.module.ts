@@ -7,9 +7,9 @@ import {ArticleListPage} from "../pages/article/list/list";
 import {ArticleDetailPage} from "../pages/article/detail/detail";
 import {StoryListPage} from "../pages/story/list/list";
 import {StoryDetailPage} from "../pages/story/detail/detail";
-import {SafeHtmlPipe} from "../shared/pipe/safehtml.pipe";
+import {SafeHtmlPipe} from "../shared/pipe/safeHtml.pipe";
 import {CommentPage} from "../pages/comment/comment";
-import {ShortTimePipe} from "../shared/pipe/shorttime.pipe";
+import {ShortTimePipe} from "../shared/pipe/shortTime.pipe";
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import {ShortTimePipe} from "../shared/pipe/shorttime.pipe";
   entryComponents: [
     MyApp,
     LoginPage,HomePage,ArticleListPage,ArticleDetailPage,
-    StoryListPage,StoryDetailPage
+    StoryListPage,StoryDetailPage,CommentPage
   ],
   providers: []
 })

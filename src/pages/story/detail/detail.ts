@@ -13,9 +13,11 @@ import {StoryService} from "../../../shared/service/story.service";
 
 export class StoryDetailPage {
   story: any;
+  storyId:number;
 
   constructor(private params: NavParams, private storyService: StoryService) {
-    this.story = this.storyService.detail(params.get('id')).subscribe(
+    this.storyId = params.get('id');
+    this.story = this.storyService.detail(this.storyId).subscribe(
       data=>this.story = data,
       error=>alert(ConfigUtil.networkError)
     );

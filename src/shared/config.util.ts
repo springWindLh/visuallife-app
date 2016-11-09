@@ -1,9 +1,13 @@
+/**
+ * Created by lh on 2016/11/9.
+ */
+import {User} from "./domain/user";
 import {Headers, RequestOptions} from "@angular/http";
 export class ConfigUtil {
-  static apiUrl = "http://192.168.4.90:8083/api";
   static token = "";
+  static apiUrl = "http://192.168.4.90:8083/api";
   static networkError="网络异常";
-  static user = {};
+  static user:User;
 
   static getJsonOption() {
     let headers = new Headers();
@@ -11,5 +15,4 @@ export class ConfigUtil {
     let requestOptions = new RequestOptions({headers: headers});
     return requestOptions;
   }
-
 }

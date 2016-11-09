@@ -35,21 +35,18 @@ export class ArticleListPage {
   }
 
   doInfinite(infiniteScroll) {
-    this.loading.present();
     setTimeout(()=> {
       if (!this.isLastPage) {
         this.query.page += 1;
         this.articleService.list(this.query).subscribe(
           data => {
-            this.loading.dismissAll();
             this.articles = this.articles.concat(data.content);
             infiniteScroll.complete();
           },
           error=>alert(ConfigUtil.networkError)
         );
-      } else {
-        infiniteScroll.complete();
       }
+        infiniteScroll.complete();
     }, 1000);
   }
 
