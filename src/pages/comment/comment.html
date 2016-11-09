@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()"><ion-icon name="close"></ion-icon></button>
+    </ion-buttons>
+    <ion-title>评论</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<ion-list>
+  <!--<ion-list-header>-->
+    <!--评论（{{comments.length}}）-->
+  <!--</ion-list-header>-->
+    <ion-item *ngFor="let com of comments;trackBy:com?.id">
+      <ion-avatar item-left>
+        <img [src]="com.user.avatar">
+      </ion-avatar>
+      <h2>{{com.user.name}}</h2>
+      <p>{{com.content}}</p>
+      <ion-row>
+        <ion-col text-left>
+          <small>{{com.createdTime | shortTime}}</small>
+        </ion-col>
+        <ion-col text-center>
+          <ion-icon name="thumbs-up"></ion-icon>
+          <span *ngIf="com.vote>0">&nbsp;{{com.vote}}</span>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+</ion-list>
+
+<ion-infinite-scroll (ionInfinite)="doCommentInfinite($event)">
+  <ion-infinite-scroll-content></ion-infinite-scroll-content>
+</ion-infinite-scroll>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-input type="text" [(ngModel)]="comment.content" placeholder="我想说……"></ion-input>
+    <ion-buttons end>
+      <button [disabled]="comment.content == ''" (click)="saveComment()" ion-button><ion-icon name="send"></ion-icon></button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
