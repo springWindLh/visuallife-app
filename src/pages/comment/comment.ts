@@ -4,7 +4,7 @@ import {Query} from "../../shared/service/support/query";
 import {ConfigUtil} from "../../shared/config.util";
 import {Comment} from "../../shared/domain/comment";
 import {Reply} from "../../shared/domain/reply";
-import {NavParams, ViewController} from "ionic-angular";
+import {NavParams, ViewController, AlertController} from "ionic-angular";
 /**
  * Created by lh on 2016/11/1.
  */
@@ -22,8 +22,8 @@ export class CommentPage {
   query = new Query(0, 20);
   isLastPage = false;
 
-  constructor(private commentService: CommentService,private params:NavParams,
-  private view:ViewController) {
+  constructor(private commentService: CommentService, private params: NavParams,
+              private view: ViewController, private alertCtrl: AlertController) {
     this.targetType = params.get('targetType');
     this.targetId = params.get('targetId');
     this.comment = new Comment(this.targetType, this.targetId, '');
@@ -73,7 +73,71 @@ export class CommentPage {
     );
   }
 
-  dismiss(){
+  dismiss() {
     this.view.dismiss();
   }
+
+  voteComment(comment) {
+    if(!this.verifyCommentVote(comment.id)){
+      this.commentService.voteComment(comment.id).subscribe(
+        data=>{
+          comment.vote = data.vote;
+          localStorage.setItem('comment_' + ConfigUtil.user.id + '_' + comment.id, 'true');
+        },
+        error=>alert(ConfigUtil.networkError)
+      );
+    }
+  }
+
+  voteReply(reply) {
+    if(!this.verifyReplyVote(reply.id)){
+      this.commentService.voteReply(reply.id).subscribe(
+        data=>{
+          reply.vote = data.vote;
+          localStorage.setItem('reply_' + ConfigUtil.user.id + '_' + reply.id, 'true');
+        },
+        error=>alert(ConfigUtil.networkError)
+      );
+    }
+  }
+
+  verifyCommentVote(commentId) {
+    return localStorage.getItem('comment_' + ConfigUtil.user.id + '_' + commentId) == 'true';
+  }
+
+  verifyReplyVote(replyId) {
+    return localStorage.getItem('reply_' + ConfigUtil.user.id + '_' + replyId) == 'true';
+  }
+
+  showReplyAlert(comment) {
+    let replyAlert = this.alertCtrl.create({
+      title: '@' + comment.user.name,
+      inputs: [
+        {
+          name: 'content'
+        }
+      ],
+      buttons: [
+        {
+          text: '取消',
+          handler: data=> {
+          }
+        },
+        {
+          text: '回复',
+          handler: data=> {
+            if(data.content!=''){
+              let reply = new Reply(comment.id, comment.user.id, data.content);
+              this.commentService.addReply(reply).subscribe(
+                data=>comment.replies.push(data),
+                error=>alert(ConfigUtil.networkError)
+              );
+            }
+          }
+        }
+      ]
+    });
+    replyAlert.present();
+  }
+
 }

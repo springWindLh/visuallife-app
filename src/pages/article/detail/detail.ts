@@ -1,6 +1,6 @@
 import {NavParams, ModalController} from "ionic-angular";
 import {ArticleService} from "../../../shared/service/article.service";
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {ConfigUtil} from "../../../shared/config.util";
 import {CommentService} from "../../../shared/service/comment.service";
 import {CommentPage} from "../../comment/comment";
@@ -39,5 +39,21 @@ export class ArticleDetailPage{
       targetId:this.articleId
     });
     modal.present();
+  }
+
+  voteArticle(article){
+    if(!this.verifyArticleVote(article.id)){
+      this.articleService.vote(article.id).subscribe(
+        data=>{
+          this.article.vote = data.vote;
+          localStorage.setItem('article_' + ConfigUtil.user.id + '_' + article.id,'true')
+        },
+        error=>alert(ConfigUtil.networkError)
+      );
+    }
+  }
+
+  verifyArticleVote(articleId){
+    return localStorage.getItem('article_' + ConfigUtil.user.id + '_' + articleId);
   }
 }

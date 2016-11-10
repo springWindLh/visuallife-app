@@ -12,8 +12,8 @@ export class ShortTimePipe implements PipeTransform {
     let milliSenconds = new Date().getTime();
     let spacing = (milliSenconds - value) / 1000;//获取时间差（秒）
     let minute = 60;
-    let hour = 60 * 60;
-    let day = 60 * 60 * 60;
+    let hour = 60 * minute;
+    let day = 24 * hour;
     if (spacing >= 0 && spacing < 60) {
       return '刚刚';
     } else if (spacing >= minute && spacing < hour) {

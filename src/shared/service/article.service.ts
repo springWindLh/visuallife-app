@@ -24,4 +24,9 @@ export class ArticleService {
     return this.http.get(ConfigUtil.apiUrl + '/article/'+id)
       .map(res=>res.json().data);
   }
+
+  vote(id:number):Observable<any>{
+    return this.http.post(ConfigUtil.apiUrl + '/article/vote/'+id,{})
+      .map(res=>res.json().data);
+  }
 }

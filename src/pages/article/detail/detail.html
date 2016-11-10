@@ -3,16 +3,24 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-<div [innerHTML]="article?.content | safeHtml"></div>
+  <div class="articleHeader">
+    <h2>{{article?.title}}</h2>
+    <ion-note><small>{{article?.createdTime | dateTime}}&nbsp;·&nbsp;{{article?.user?.name}}</small></ion-note>
+  </div><br>
+  <div [innerHTML]="article?.content | safeHtml"></div>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
-    <ion-buttons left>
-      <button ion-button icon-only><ion-icon name="thumbs-up"></ion-icon><span *ngIf="article?.vote>0">&nbsp;{{article?.vote}}</span></button>
-      </ion-buttons>
-    <ion-buttons right>
-      <button ion-button icon-only (click)="presentModal()"><ion-icon name="chatbubbles"></ion-icon><span *ngIf="commentAmount>0">&nbsp;{{commentAmount}}</span></button>
+    <ion-buttons left margin-left>
+      <button [ngClass]="{voted: verifyArticleVote(article?.id)}" (click)="voteArticle(article)" ion-button icon-only>
+        <ion-icon name="thumbs-up"></ion-icon>
+        <span *ngIf="article?.vote>0"><b>{{article?.vote}}</b></span></button>
+    </ion-buttons>
+    <ion-buttons right margin-right>
+      <button ion-button icon-only (click)="presentModal()">
+        <ion-icon name="chatbubbles"></ion-icon>
+        <span *ngIf="commentAmount>0"><b>{{commentAmount}}</b></span></button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

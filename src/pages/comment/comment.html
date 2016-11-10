@@ -8,25 +8,36 @@
 </ion-header>
 <ion-content>
 <ion-list>
-  <!--<ion-list-header>-->
-    <!--评论（{{comments.length}}）-->
-  <!--</ion-list-header>-->
-    <ion-item *ngFor="let com of comments;trackBy:com?.id">
+  <div *ngFor="let com of comments">
+    <ion-item>
       <ion-avatar item-left>
         <img [src]="com.user.avatar">
       </ion-avatar>
       <h2>{{com.user.name}}</h2>
+      <span item-right [ngClass]="{voted: verifyCommentVote(com.id)}" (click)="voteComment(com)"><ion-icon name="thumbs-up"></ion-icon><b><span *ngIf="com.vote>0">{{com.vote}}</span></b></span>
       <p>{{com.content}}</p>
-      <ion-row>
-        <ion-col text-left>
-          <small>{{com.createdTime | shortTime}}</small>
-        </ion-col>
-        <ion-col text-center>
-          <ion-icon name="thumbs-up"></ion-icon>
-          <span *ngIf="com.vote>0">&nbsp;{{com.vote}}</span>
+      <ion-row margin-top>
+        <ion-col text-left style="padding-left: 0;">
+          <ion-note><small>{{com.createdTime | shortTime}}</small></ion-note>
+          <ion-note margin-left (click)="showReplyAlert(com)"><small>回复（{{com.replies.length}}）</small></ion-note>
         </ion-col>
       </ion-row>
     </ion-item>
+    <ion-item class="replyItem" *ngFor="let reply of com.replies;">
+      <ion-avatar item-left>
+        <img [src]="reply.sender.avatar">
+      </ion-avatar>
+      <h2>{{reply.sender?.name}}</h2>
+      <span item-right [ngClass]="{voted: verifyReplyVote(reply.id)}" (click)="voteReply(reply)"><ion-icon name="thumbs-up"></ion-icon><b><span *ngIf="reply.vote>0">{{reply.vote}}</span></b></span>
+      <p>@{{reply.accepter.name}}&nbsp;{{reply.content}}</p>
+      <ion-row margin-top>
+        <ion-col text-left style="padding-left: 0;">
+          <ion-note><small>{{reply.createdTime | shortTime}}</small></ion-note>
+          <ion-note margin-left (click)="showReplyAlert(com)"><small>回复</small></ion-note>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </div>
 </ion-list>
 
 <ion-infinite-scroll (ionInfinite)="doCommentInfinite($event)">
