@@ -1,18 +1,18 @@
 import {Component} from "@angular/core";
 import {Query} from "../../../shared/service/support/query";
-import {NavController, LoadingController, Loading} from "ionic-angular";
+import {Loading, LoadingController, NavController} from "ionic-angular";
 import {ConfigUtil} from "../../../shared/config.util";
 import {StoryService} from "../../../shared/service/story.service";
 import {StoryDetailPage} from "../detail/detail";
 /**
- * Created by lh on 2016/10/28.
+ * Created by lh on 2016/11/11.
  */
 @Component({
-  selector: 'story-list-page',
-  templateUrl: 'list.html',
-  providers: [StoryService]
+  selector: 'story-user-list-page',
+  templateUrl: 'userList.html',
+  providers: [StoryService, LoadingController]
 })
-export class StoryListPage {
+export class StoryUserListPage {
   stories = [];
   query = new Query(0, 20);
   isLastPage = false;
@@ -20,15 +20,11 @@ export class StoryListPage {
 
   constructor(private storyService: StoryService, private nav: NavController,
               private load: LoadingController) {
-    this.initData();
-  }
-
-  initData() {
-    this.loading = this.load.create({
+    this.loading = load.create({
       content: 'loading...'
     });
     this.loading.present();
-    this.storyService.list(this.query).subscribe(
+    storyService.userList(this.query).subscribe(
       data => {
         this.loading.dismissAll();
         this.stories = data.content;
@@ -42,7 +38,7 @@ export class StoryListPage {
     setTimeout(()=> {
       if (!this.isLastPage) {
         this.query.page += 1;
-        this.storyService.list(this.query).subscribe(
+        this.storyService.userList(this.query).subscribe(
           data => {
             this.stories = this.stories.concat(data.content);
             infiniteScroll.complete();
@@ -57,12 +53,5 @@ export class StoryListPage {
     this.nav.push(StoryDetailPage, {
       id: id
     });
-  }
-
-  doRefresh(refresher) {
-    setTimeout(()=> {
-      this.initData();
-      refresher.complete();
-    }, 2000);
   }
 }

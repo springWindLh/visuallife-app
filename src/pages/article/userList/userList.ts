@@ -1,18 +1,18 @@
 import {Component} from "@angular/core";
 import {ArticleService} from "../../../shared/service/article.service";
 import {Query} from "../../../shared/service/support/query";
-import {NavController, Loading, LoadingController} from "ionic-angular";
-import {ArticleDetailPage} from "../detail/detail";
+import {Loading, LoadingController, NavController} from "ionic-angular";
 import {ConfigUtil} from "../../../shared/config.util";
+import {ArticleDetailPage} from "../detail/detail";
 /**
- * Created by lh on 2016/10/28.
+ * Created by lh on 2016/11/11.
  */
 @Component({
-  selector: 'article-list-page',
-  templateUrl: 'list.html',
-  providers: [ArticleService,LoadingController]
+  selector:'article-user-list-page',
+  templateUrl:'userList.html',
+  providers:[ArticleService,LoadingController]
 })
-export class ArticleListPage {
+export class ArticleUserListPage{
   articles = [];
   query = new Query(0, 20);
   isLastPage = false;
@@ -20,15 +20,11 @@ export class ArticleListPage {
 
   constructor(private articleService: ArticleService, private nav: NavController,
               private load: LoadingController) {
-    this.initData();
-  }
-
-  initData(){
-    this.loading = this.load.create({
+    this.loading = load.create({
       content:'loading...'
     });
     this.loading.present();
-    this.articleService.list(this.query).subscribe(
+    articleService.userList(this.query).subscribe(
       data => {
         this.loading.dismissAll();
         this.articles = data.content;
@@ -42,7 +38,7 @@ export class ArticleListPage {
     setTimeout(()=> {
       if (!this.isLastPage) {
         this.query.page += 1;
-        this.articleService.list(this.query).subscribe(
+        this.articleService.userList(this.query).subscribe(
           data => {
             this.articles = this.articles.concat(data.content);
             infiniteScroll.complete();
@@ -57,12 +53,5 @@ export class ArticleListPage {
     this.nav.push(ArticleDetailPage, {
       id: id
     });
-  }
-
-  doRefresh(refresher) {
-    setTimeout(()=> {
-      this.initData();
-      refresher.complete();
-    }, 2000);
   }
 }

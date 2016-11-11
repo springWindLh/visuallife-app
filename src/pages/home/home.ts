@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-
-import { NavController } from 'ionic-angular';
-import { ArticleListPage} from "../article/list/list";
+import {Component} from "@angular/core";
+import {NavController} from "ionic-angular";
+import {ArticleListPage} from "../article/list/list";
 import {StoryListPage} from "../story/list/list";
 
 @Component({
@@ -9,16 +8,15 @@ import {StoryListPage} from "../story/list/list";
   templateUrl: 'home.html'
 })
 export class HomePage {
-
   constructor(private nav: NavController) {
-
   }
 
-  toArticleListPage(){
+  toArticleListPage() {
     this.nav.push(ArticleListPage);
   }
 
-  toStoryListPage(){
+  toStoryListPage() {
     this.nav.push(StoryListPage);
   }
+
 }

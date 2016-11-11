@@ -8,52 +8,57 @@ import {CommentPage} from "../../comment/comment";
  * Created by lh on 2016/10/30.
  */
 @Component({
-  selector:'story-detail-page',
-  templateUrl:'detail.html',
-  providers:[StoryService,CommentService]
+  selector: 'story-detail-page',
+  templateUrl: 'detail.html',
+  providers: [StoryService, CommentService]
 })
 
 export class StoryDetailPage {
   story: any;
-  storyId:number;
+  storyId: number;
   commentAmount: number;
   targetType = 'STORY';
 
-  constructor(private params: NavParams, private storyService: StoryService,private commentService:CommentService,
-  private modal:ModalController) {
+  constructor(private params: NavParams, private storyService: StoryService, private commentService: CommentService,
+              private modal: ModalController) {
     this.storyId = params.get('id');
+    this.initData();
+  }
+
+  initData() {
     this.story = this.storyService.detail(this.storyId).subscribe(
       data=>this.story = data,
       error=>alert(ConfigUtil.networkError)
     );
 
-    this.commentService.countComment(this.targetType,this.storyId).subscribe(
+    this.commentService.countComment(this.targetType, this.storyId).subscribe(
       data=>this.commentAmount = data,
       error=>alert(ConfigUtil.networkError)
     );
   }
 
-  presentModal(){
-    let modal = this.modal.create(CommentPage,{
-      targetType:this.targetType,
-      targetId:this.storyId
+  presentModal() {
+    let modal = this.modal.create(CommentPage, {
+      targetType: this.targetType,
+      targetId: this.storyId
     });
     modal.present();
   }
 
-  voteStory(story){
-    if(!this.verifyStoryVote(story.id)){
+  voteStory(story) {
+    if (!this.verifyStoryVote(story.id)) {
       this.storyService.vote(story.id).subscribe(
-        data=>{
+        data=> {
           this.story.vote = data.vote;
-          localStorage.setItem('story_' + ConfigUtil.user.id + '_' + story.id,'true')
+          localStorage.setItem('story_' + ConfigUtil.user.id + '_' + story.id, 'true')
         },
         error=>alert(ConfigUtil.networkError)
       );
     }
   }
 
-  verifyStoryVote(articleId){
+  verifyStoryVote(articleId) {
     return localStorage.getItem('story_' + ConfigUtil.user.id + '_' + articleId);
   }
+
 }

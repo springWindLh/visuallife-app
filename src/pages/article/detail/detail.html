@@ -8,6 +8,7 @@
     <ion-note><small>{{article?.createdTime | dateTime}}&nbsp;·&nbsp;{{article?.user?.name}}</small></ion-note>
   </div><br>
   <div [innerHTML]="article?.content | safeHtml"></div>
+
 </ion-content>
 
 <ion-footer>
