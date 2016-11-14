@@ -20,14 +20,14 @@ export class StoryListPage {
 
   constructor(private storyService: StoryService, private nav: NavController,
               private load: LoadingController) {
-    this.initData();
-  }
-
-  initData() {
     this.loading = this.load.create({
       content: 'loading...'
     });
     this.loading.present();
+    this.initData();
+  }
+
+  initData() {
     this.storyService.list(this.query).subscribe(
       data => {
         this.loading.dismissAll();
@@ -61,8 +61,9 @@ export class StoryListPage {
 
   doRefresh(refresher) {
     setTimeout(()=> {
+      this.query.page = 0;
       this.initData();
       refresher.complete();
-    }, 2000);
+    }, 1000);
   }
 }

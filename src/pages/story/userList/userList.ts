@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, ViewChildren} from "@angular/core";
 import {Query} from "../../../shared/service/support/query";
 import {Loading, LoadingController, NavController} from "ionic-angular";
 import {ConfigUtil} from "../../../shared/config.util";
@@ -13,18 +13,27 @@ import {StoryDetailPage} from "../detail/detail";
   providers: [StoryService, LoadingController]
 })
 export class StoryUserListPage {
+  @ViewChildren('checkbox') checkboxes;
   stories = [];
   query = new Query(0, 20);
   isLastPage = false;
   loading: Loading;
+  checkboxVisible = false;
+  globalChecked = false;
+  removeStoryIds = [];
 
   constructor(private storyService: StoryService, private nav: NavController,
               private load: LoadingController) {
-    this.loading = load.create({
+    this.loading = this.load.create({
       content: 'loading...'
     });
     this.loading.present();
-    storyService.userList(this.query).subscribe(
+    this.initData();
+  }
+
+  initData(){
+
+    this.storyService.userList(this.query).subscribe(
       data => {
         this.loading.dismissAll();
         this.stories = data.content;
@@ -53,5 +62,49 @@ export class StoryUserListPage {
     this.nav.push(StoryDetailPage, {
       id: id
     });
+  }
+
+  editList() {
+    this.checkboxVisible = !this.checkboxVisible;
+  }
+
+  removeStories() {
+    this.storyService.remove(this.removeStoryIds).subscribe(
+      data=>{
+        this.removeStoryIds.forEach(storyId=>{
+          let index = this.stories.findIndex(story=>story.id==storyId);
+          this.stories.splice(index, 1);
+        });
+        this.removeStoryIds = [];
+        this.storyService.userList(this.query).subscribe(
+          data => {
+            this.stories = this.stories.concat(data.content);
+          },
+          error=>alert(ConfigUtil.networkError)
+        );
+      },
+      error=>alert(ConfigUtil.networkError)
+    );
+  }
+
+  checkboxChange(id,index,box) {
+    if(box.checked) {
+      this.removeStoryIds.push(id);
+    }else{
+      this.removeStoryIds.splice(index,1);
+    }
+  }
+
+  checkAllBox() {
+    this.globalChecked = !this.globalChecked;
+    this.checkboxes._results.map(box=>box.checked = this.globalChecked);
+  }
+
+  doRefresh(refresher) {
+    setTimeout(()=> {
+      this.query.page = 0;
+      this.initData();
+      refresher.complete();
+    }, 1000);
   }
 }

@@ -20,14 +20,15 @@ export class ArticleListPage {
 
   constructor(private articleService: ArticleService, private nav: NavController,
               private load: LoadingController) {
-    this.initData();
-  }
 
-  initData(){
     this.loading = this.load.create({
       content:'loading...'
     });
     this.loading.present();
+    this.initData();
+  }
+
+  initData(){
     this.articleService.list(this.query).subscribe(
       data => {
         this.loading.dismissAll();
@@ -61,8 +62,9 @@ export class ArticleListPage {
 
   doRefresh(refresher) {
     setTimeout(()=> {
+      this.query.page = 0;
       this.initData();
       refresher.complete();
-    }, 2000);
+    }, 1000);
   }
 }

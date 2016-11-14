@@ -34,4 +34,9 @@ export class ArticleService {
     return this.http.get(ConfigUtil.apiUrl + '/article/user/list/' + ConfigUtil.user.id, {search: PageUtil.getPageParams(query)})
       .map(res=>res.json().data);
   }
+
+  remove(ids:Array<number>): Observable<any> {
+    return this.http.post(ConfigUtil.apiUrl + '/article/remove', ids)
+      .map(res=>res.json().data);
+  }
 }

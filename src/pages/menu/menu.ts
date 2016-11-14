@@ -7,6 +7,7 @@ import {HomePage} from "../home/home";
 import {ConfigUtil} from "../../shared/config.util";
 import {MenuController} from "ionic-angular";
 import {StoryUserListPage} from "../story/userList/userList";
+import {User} from "../../shared/domain/user";
 @Component({
   selector: 'side-menu',
   templateUrl: 'menu.html'
@@ -14,7 +15,7 @@ import {StoryUserListPage} from "../story/userList/userList";
 
 export class SideMenu {
   @ViewChild('myContent') menuNav;
-  user = ConfigUtil.user;
+  user:User = ConfigUtil.user;
   rootPage = HomePage;
 
   constructor(private menu:MenuController){

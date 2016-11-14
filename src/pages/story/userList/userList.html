@@ -3,17 +3,42 @@
     <ion-title>
       我的故事
     </ion-title>
+    <ion-buttons right>
+      <button ion-button (click)="editList()">
+        <ion-title>{{checkboxVisible?'取消':'编辑'}}</ion-title>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let story of stories" (click)="toStoryDetailPage(story.id)">
+    <ion-item *ngFor="let story of stories;let i=index" (click)="toStoryDetailPage(story.id)">
       <ion-label>{{story.description}}</ion-label>
-      <ion-checkbox [(ngModel)]="story.id"></ion-checkbox>
+      <ion-checkbox #checkbox [hidden]="!checkboxVisible"
+                    (ionChange)="checkboxChange(story.id,i,$event)"></ion-checkbox>
     </ion-item>
   </ion-list>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
+
+<ion-footer *ngIf="checkboxVisible">
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="removeStories()">
+        <ion-icon name="trash"></ion-icon> <ion-title>删除</ion-title>
+      </button>
+    </ion-buttons>
+    <ion-buttons right>
+      <button ion-button (click)="checkAllBox()">
+        <ion-checkbox [(ngModel)]="globalChecked"></ion-checkbox><ion-title>全选</ion-title>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-footer>
