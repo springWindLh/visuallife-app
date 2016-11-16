@@ -13,13 +13,13 @@
       <ion-avatar item-left>
         <img [src]="com.user.avatar">
       </ion-avatar>
-      <h2>{{com.user.name}}</h2>
-      <span item-right [ngClass]="{voted: verifyCommentVote(com.id)}" (click)="voteComment(com)"><ion-icon name="thumbs-up"></ion-icon><b><span *ngIf="com.vote>0">{{com.vote}}</span></b></span>
-      <p>{{com.content}}</p>
+      <h2 class="nameColor">{{com.user.name}}</h2>
+      <span item-right [ngClass]="{voted: verifyCommentVote(com.id),vote:!verifyCommentVote(com.id)}" (click)="voteComment(com)"><ion-icon name="thumbs-up"></ion-icon><b><span *ngIf="com.vote>0">{{com.vote}}</span></b></span>
+      <p class="contentColor">{{com.content}}</p>
       <ion-row margin-top>
         <ion-col text-left style="padding-left: 0;">
-          <ion-note><small>{{com.createdTime | shortTime}}</small></ion-note>
-          <ion-note margin-left (click)="showReplyAlert(com)"><small>回复（{{com.replies.length}}）</small></ion-note>
+          <ion-note class="timeColor"><small>{{com.createdTime | shortTime}}</small></ion-note>
+          <ion-note class="timeColor" margin-left (click)="showReplyAlert(com)"><small>回复（{{com.replies.length}}）</small></ion-note>
         </ion-col>
       </ion-row>
     </ion-item>
@@ -27,13 +27,13 @@
       <ion-avatar item-left>
         <img [src]="reply.sender.avatar">
       </ion-avatar>
-      <h2>{{reply.sender?.name}}</h2>
-      <span item-right [ngClass]="{voted: verifyReplyVote(reply.id)}" (click)="voteReply(reply)"><ion-icon name="thumbs-up"></ion-icon><b><span *ngIf="reply.vote>0">{{reply.vote}}</span></b></span>
-      <p>@{{reply.accepter.name}}&nbsp;{{reply.content}}</p>
+      <h2 class="nameColor">{{reply.sender?.name}}</h2>
+      <span item-right [ngClass]="{voted: verifyReplyVote(reply.id),vote:!verifyReplyVote(reply.id)}" (click)="voteReply(reply)"><ion-icon name="thumbs-up"></ion-icon><b><span *ngIf="reply.vote>0">{{reply.vote}}</span></b></span>
+      <p class="contentColor"><span class="nameColor">@{{reply.accepter.name}}</span>&nbsp;{{reply.content}}</p>
       <ion-row margin-top>
         <ion-col text-left style="padding-left: 0;">
-          <ion-note><small>{{reply.createdTime | shortTime}}</small></ion-note>
-          <ion-note margin-left (click)="showReplyAlert(com)"><small>回复</small></ion-note>
+          <ion-note class="timeColor"><small>{{reply.createdTime | shortTime}}</small></ion-note>
+          <ion-note class="timeColor" margin-left (click)="showReplyAlert(com)"><small>回复</small></ion-note>
         </ion-col>
       </ion-row>
     </ion-item>

@@ -1,7 +1,28 @@
 .replyItem{
-  background-color: #7f7f7f;
+  background-color: rgb(64, 49, 49,0.8) !important;
 }
 
 .voted{
-  color: #ecc7bf;
+  color: #ecc7bf !important;
 }
+
+.vote{
+  color: #d1bfa7 !important;
+}
+
+ion-item{
+  background-color: rgba(95, 78, 78, 0.5) !important;
+}
+
+.nameColor{
+  color: #a1bad0 !important;
+}
+
+.contentColor{
+  color: white !important;
+}
+
+.timeColor{
+  color: #866667 !important;
+}
+

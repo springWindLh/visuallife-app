@@ -6,7 +6,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-card *ngFor="let story of stories" (click)="toStoryDetailPage(story.id)">
+  <ion-card class="bg-white" *ngFor="let story of stories" (click)="toStoryDetailPage(story.id)">
     <img *ngIf="story.picture != null" [src]="story.picture">
 
     <ion-card-content>
@@ -14,7 +14,7 @@
     </ion-card-content>
 
     <ion-row>
-      <ion-col text-right padding>
+      <ion-col text-right padding class="text-gray">
         <small>{{story.createdTime | shortTime}}</small>
       </ion-col>
     </ion-row>
