@@ -1,26 +1,49 @@
-
-  <ion-list>
-    <ion-list-header>
-      评论（{{comments.length}}）
-    </ion-list-header>
-
-    <ion-item *ngFor="let com of comments">
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons right>
+      <button ion-button (click)="dismiss()"><ion-title><ion-icon name="close"></ion-icon></ion-title></button>
+    </ion-buttons>
+    <ion-title>评论</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<ion-list>
+  <div *ngFor="let com of comments">
+    <ion-item>
       <ion-avatar item-left>
-        <img src="com.avatar">
+        <img [src]="com.user.avatar">
       </ion-avatar>
-      <h2>{{com.user.name}}</h2>
-      <p>{{com.content}}</p>
-      <ion-row>
-        <ion-col text-left>
-          <small>{{com.createdTime | shortTime}}</small>
-        </ion-col>
-        <ion-col text-center>
-          <ion-icon name="thumbs-up"></ion-icon>
-          <span *ngIf="comment.vote>0">&nbsp;{{com.vote}}</span>
+      <h2 class="nameColor">{{com.user.name}}</h2>
+      <span item-right [ngClass]="{voted: verifyCommentVote(com.id),vote:!verifyCommentVote(com.id)}" (click)="voteComment(com)"><ion-icon name="thumbs-up"></ion-icon><b><span *ngIf="com.vote>0">{{com.vote}}</span></b></span>
+      <p class="contentColor">{{com.content}}</p>
+      <ion-row margin-top>
+        <ion-col text-left style="padding-left: 0;">
+          <ion-note class="timeColor"><small>{{com.createdTime | shortTime}}</small></ion-note>
+          <ion-note class="timeColor" margin-left (click)="showReplyAlert(com)"><small>回复（{{com.replies.length}}）</small></ion-note>
         </ion-col>
       </ion-row>
     </ion-item>
-  </ion-list>
+    <ion-item class="replyItem" *ngFor="let reply of com.replies;">
+      <ion-avatar item-left>
+        <img [src]="reply.sender.avatar">
+      </ion-avatar>
+      <h2 class="nameColor">{{reply.sender?.name}}</h2>
+      <span item-right [ngClass]="{voted: verifyReplyVote(reply.id),vote:!verifyReplyVote(reply.id)}" (click)="voteReply(reply)"><ion-icon name="thumbs-up"></ion-icon><b><span *ngIf="reply.vote>0">{{reply.vote}}</span></b></span>
+      <p class="contentColor"><span class="nameColor">@{{reply.accepter.name}}</span>&nbsp;{{reply.content}}</p>
+      <ion-row margin-top>
+        <ion-col text-left style="padding-left: 0;">
+          <ion-note class="timeColor"><small>{{reply.createdTime | shortTime}}</small></ion-note>
+          <ion-note class="timeColor" margin-left (click)="showReplyAlert(com)"><small>回复</small></ion-note>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </div>
+</ion-list>
+
+<ion-infinite-scroll (ionInfinite)="doCommentInfinite($event)">
+  <ion-infinite-scroll-content></ion-infinite-scroll-content>
+</ion-infinite-scroll>
+</ion-content>
 
 <ion-footer>
   <ion-toolbar>

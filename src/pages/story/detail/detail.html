@@ -2,7 +2,26 @@
   <ion-navbar>
   </ion-navbar>
 </ion-header>
-<ion-content>
-    <img *ngIf="story.picture != null" [src]="story.picture">
-    <p padding>{{story.description}}</p>
+<ion-content class="bg-white">
+  <img *ngIf="story.picture != null" [src]="story.picture">
+  <p padding>{{story?.description}}</p>
+  <p text-right padding="">
+    <small class="autor">{{story?.createdTime | dateTime}}&nbsp;·&nbsp;{{story?.user?.name}}</small>
+  </p>
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons left margin-left>
+      <button [ngClass]="{voted: verifyStoryVote(story?.id)}" (click)="voteStory(story)" ion-button icon-only>
+        <ion-icon name="thumbs-up"></ion-icon>
+        <span *ngIf="story?.vote>0"><b>{{story?.vote}}</b></span></button>
+    </ion-buttons>
+    <ion-buttons right margin-right>
+      <button ion-button icon-only (click)="presentModal()">
+        <ion-icon name="chatbubbles"></ion-icon>
+        <span *ngIf="commentAmount>0"><b>{{commentAmount}}</b></span></button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

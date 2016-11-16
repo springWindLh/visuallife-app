@@ -1,0 +1,42 @@
+<ion-menu [content]="myContent">
+  <ion-content>
+    <ion-avatar>
+      <img src="../../assets/images/home_article_bg.jpg">
+    </ion-avatar>
+    <ion-card>
+      <ion-card-header>
+        <ion-item>
+          <ion-avatar item-left>
+            <img [src]="user.avatar">
+          </ion-avatar>
+          <ion-title>
+            {{user.name}}
+          </ion-title>
+        </ion-item>
+      </ion-card-header>
+      <ion-list>
+        <button ion-item (click)="gotoPage('articleUserListPage')">
+          <ion-icon name="camera" item-left></ion-icon>
+          我的文章
+        </button>
+        <button ion-item (click)="gotoPage('storyUserListPage')">
+          <ion-icon name="leaf" item-left></ion-icon>
+          我的故事
+        </button>
+        <button ion-item (click)="gotoPage('userInfoPage')">
+          <ion-icon name="contact" item-left></ion-icon>
+          基本信息
+        </button>
+        <button ion-item (click)="gotoPage('userPasswordPage')">
+          <ion-icon name="key" item-left></ion-icon>
+          密码修改
+        </button>
+      </ion-list>
+
+    </ion-card>
+  </ion-content>
+</ion-menu>
+
+<ion-nav #myContent [root]="rootPage" swipe-to-go-back="true">
+
+</ion-nav>

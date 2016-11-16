@@ -6,7 +6,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-card *ngFor="let article of articles" (click)="toArticleDetailPage(article.id)">
+  <ion-card class="bg-white" *ngFor="let article of articles" (click)="toArticleDetailPage(article.id)">
     <img *ngIf="article.coverImg != null" [src]="article.coverImg">
 
     <ion-card-content>
@@ -17,11 +17,15 @@
     </ion-card-content>
 
     <ion-row>
-      <ion-col text-right padding>
-        <small>{{article.createdTime | date:'yyyy/MM/dd'}}</small>
+      <ion-col text-right padding class="text-gray">
+        <small>{{article.createdTime | shortTime}}</small>
       </ion-col>
     </ion-row>
   </ion-card>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>

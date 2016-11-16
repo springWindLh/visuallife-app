@@ -12,8 +12,8 @@ export class ShortTimePipe implements PipeTransform {
     let milliSenconds = new Date().getTime();
     let spacing = (milliSenconds - value) / 1000;//获取时间差（秒）
     let minute = 60;
-    let hour = 60 * 60;
-    let day = 60 * 60 * 60;
+    let hour = 60 * minute;
+    let day = 24 * hour;
     if (spacing >= 0 && spacing < 60) {
       return '刚刚';
 
@@ -24,7 +24,7 @@ export class ShortTimePipe implements PipeTransform {
     } else if (spacing >= day && spacing < 7 * day) {
       return Math.floor(spacing / day) + '天前';
     } else {
-      return new Intl.DateTimeFormat('yyyy/MM/dd HH:mm').format(time);
+      return time.toLocaleDateString();
     }
   }
 }

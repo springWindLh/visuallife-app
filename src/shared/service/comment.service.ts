@@ -1,4 +1,4 @@
-import {Http} from "@angular/http";
+import {Http, URLSearchParams} from "@angular/http";
 import {Query} from "./support/query";
 import {ConfigUtil} from "../config.util";
 import {PageUtil} from "../page.util";
@@ -39,6 +39,14 @@ export class CommentService {
 
   voteReply(id: number):Observable<any> {
     return this.http.post(ConfigUtil.apiUrl + '/reply/vote/' + id, {})
+      .map(res=>res.json().data);
+  }
+
+  countComment(targetType: string, targetId: number):Observable<any>{
+    let params = new URLSearchParams();
+    params.set('targetType', targetType);
+    params.set('targetId', targetId.toString());
+    return this.http.get(ConfigUtil.apiUrl + '/comment/count', {search: params})
       .map(res=>res.json().data);
   }
 }

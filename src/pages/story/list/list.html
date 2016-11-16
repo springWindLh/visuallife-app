@@ -6,7 +6,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-card *ngFor="let story of stories" (click)="toStoryDetailPage(story.id)">
+  <ion-card class="bg-white" *ngFor="let story of stories" (click)="toStoryDetailPage(story.id)">
     <img *ngIf="story.picture != null" [src]="story.picture">
 
     <ion-card-content>
@@ -14,11 +14,15 @@
     </ion-card-content>
 
     <ion-row>
-      <ion-col text-right padding>
-        <small>{{story.createdTime | date:'yyyy/MM/dd'}}</small>
+      <ion-col text-right padding class="text-gray">
+        <small>{{story.createdTime | shortTime}}</small>
       </ion-col>
     </ion-row>
   </ion-card>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>

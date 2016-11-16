@@ -23,4 +23,19 @@ export class StoryService {
     return this.http.get(ConfigUtil.apiUrl + '/story/' + id)
       .map(res=>res.json().data);
   }
+
+  vote(id:number):Observable<any>{
+    return this.http.post(ConfigUtil.apiUrl + '/story/vote/'+id,{})
+      .map(res=>res.json().data);
+  }
+
+  userList(query: Query): Observable<any> {
+    return this.http.get(ConfigUtil.apiUrl + '/story/user/list/' + ConfigUtil.user.id, {search: PageUtil.getPageParams(query)})
+      .map(res=>res.json().data);
+  }
+
+  remove(ids:Array<number>): Observable<any> {
+    return this.http.post(ConfigUtil.apiUrl + '/story/remove', ids)
+      .map(res=>res.json().data);
+  }
 }

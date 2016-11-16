@@ -20,11 +20,16 @@ export class ArticleListPage {
 
   constructor(private articleService: ArticleService, private nav: NavController,
               private load: LoadingController) {
-    this.loading = load.create({
+
+    this.loading = this.load.create({
       content:'loading...'
     });
     this.loading.present();
-    articleService.list(this.query).subscribe(
+    this.initData();
+  }
+
+  initData(){
+    this.articleService.list(this.query).subscribe(
       data => {
         this.loading.dismissAll();
         this.articles = data.content;
@@ -35,20 +40,16 @@ export class ArticleListPage {
   }
 
   doInfinite(infiniteScroll) {
-    this.loading.present();
     setTimeout(()=> {
       if (!this.isLastPage) {
         this.query.page += 1;
         this.articleService.list(this.query).subscribe(
           data => {
-            this.loading.dismissAll();
             this.articles = this.articles.concat(data.content);
             infiniteScroll.complete();
           },
           error=>alert(ConfigUtil.networkError)
         );
-      } else {
-        infiniteScroll.complete();
       }
     }, 1000);
   }
@@ -59,4 +60,11 @@ export class ArticleListPage {
     });
   }
 
+  doRefresh(refresher) {
+    setTimeout(()=> {
+      this.query.page = 0;
+      this.initData();
+      refresher.complete();
+    }, 1000);
+  }
 }
