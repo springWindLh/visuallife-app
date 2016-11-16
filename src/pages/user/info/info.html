@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <form #infoForm="ngForm">
+      <div padding-left>
+        <img class="infoAvatar" width="80" height="80" [src]="user.avatar">
+        <p padding-top>
+          <button ion-button type="button" small outline color="dark">更换头像</button>
+        </p>
+      </div>
+      <ion-item>
+        <ion-label stacked>昵称&nbsp;
+          <small class="error" *ngIf="name.errors && (name.dirty || name.touch)">请填写昵称，且长度为1~20位</small>
+        </ion-label>
+        <ion-input type="text" #name="ngModel" required [(ngModel)]="user.name" name="name" minlength="1"
+                   maxlength="20"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>手机号&nbsp;
+          <small class="error" *ngIf="mobile.errors && (mobile.dirty || mobile.touch)">请填写正确的手机号</small>
+        </ion-label>
+        <ion-input type="text" #mobile="ngModel" required [(ngModel)]="user.mobile" name="mobile"
+                   pattern="^1(3[0-9]|4[57]|5[0-35-9]|7[01678]|8[0-9])\\d{8}$"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>邮箱&nbsp;
+          <small class="error" *ngIf="email.errors && (email.dirty || email.touch)">请填写正确的邮箱地址</small>
+        </ion-label>
+        <ion-input type="email" #email="ngModel" required [(ngModel)]="user.email" name="email"
+                   pattern="^[a-zA-Z0-9_\.]+@[a-zA-Z0-9-]+[\.a-zA-Z]+$"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>自我简介&nbsp;
+          <small class="error" *ngIf="introduce.errors && (introduce.dirty || introduce.touch)">内容长度不能超过50位</small>
+        </ion-label>
+        <ion-textarea [(ngModel)]="user.introduce" #introduce="ngModel" name="introduce" maxlength="50"></ion-textarea>
+      </ion-item>
+      <p>
+        <button ion-button block [disabled]="!infoForm.valid" (click)="updateInfo()">保存</button>
+      </p>
+  </form>
+</ion-content>

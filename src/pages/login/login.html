@@ -1,3 +1,4 @@
+<ion-content padding>
 <form #loginForm="ngForm">
   <img>
   <ion-item>
@@ -8,6 +9,6 @@
     <ion-label floating>密码</ion-label>
     <ion-input type="password" required [(ngModel)]="password" name="password"></ion-input>
   </ion-item>
-<br>
-<button ion-button block (click)="login()" [disabled]="!loginForm.form.valid">登&nbsp;录</button>
+<p><button ion-button block (click)="login()" [disabled]="!loginForm.form.valid">登&nbsp;录</button></p>
 </form>
+</ion-content>

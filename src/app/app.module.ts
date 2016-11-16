@@ -14,6 +14,8 @@ import {DateTimePipe} from "../shared/pipe/datetime.pipe";
 import {ArticleUserListPage} from "../pages/article/userList/userList";
 import {SideMenu} from "../pages/menu/menu";
 import {StoryUserListPage} from "../pages/story/userList/userList";
+import {UserInfoPage} from "../pages/user/info/info";
+import {UserPasswordPage} from "../pages/user/password/password";
 
 @NgModule({
   declarations: [
@@ -21,7 +23,7 @@ import {StoryUserListPage} from "../pages/story/userList/userList";
     SafeHtmlPipe,ShortTimePipe,DateTimePipe,
     LoginPage,HomePage,ArticleListPage,ArticleDetailPage,
     StoryListPage,StoryDetailPage,CommentPage,ArticleUserListPage,
-    SideMenu,StoryUserListPage
+    SideMenu,StoryUserListPage,UserInfoPage,UserPasswordPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -31,7 +33,7 @@ import {StoryUserListPage} from "../pages/story/userList/userList";
     MyApp,
     LoginPage,HomePage,ArticleListPage,ArticleDetailPage,
     StoryListPage,StoryDetailPage,CommentPage,ArticleUserListPage,
-    SideMenu,StoryUserListPage
+    SideMenu,StoryUserListPage,UserInfoPage,UserPasswordPage
   ],
   providers: []
 })
