@@ -12,9 +12,9 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let story of stories;let i=index" (click)="toStoryDetailPage(story.id)">
+    <ion-item class="bg-white" *ngFor="let story of stories;let i=index" (click)="toStoryDetailPage(story.id)">
       <ion-label>{{story.description}}</ion-label>
-      <ion-checkbox #checkbox [hidden]="!checkboxVisible"
+      <ion-checkbox #checkbox color="dark" [hidden]="!checkboxVisible"
                     (ionChange)="checkboxChange(story.id,i,$event)"></ion-checkbox>
     </ion-item>
   </ion-list>

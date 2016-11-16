@@ -22,6 +22,7 @@ export class UserInfoPage {
     this.userService.update(this.user).subscribe(
       data=>{
         ConfigUtil.user = data.data;
+        localStorage.setItem('nameOrMobile', this.user.name);
         this.toast.show(data.msg);
       },
       error=>alert(ConfigUtil.networkError)

@@ -1,16 +1,16 @@
 <ion-content padding>
   <form #loginForm="ngForm">
     <img>
-      <ion-item>
+      <ion-item class="form-bg-color">
         <ion-label floating>用户名</ion-label>
         <ion-input type="text" required [(ngModel)]="nameOrMobile" name="nameOrMobile"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item class="form-bg-color">
         <ion-label floating>密码</ion-label>
         <ion-input type="password" required [(ngModel)]="password" name="password"></ion-input>
       </ion-item>
       <p>
-        <button ion-button block (click)="login()" [disabled]="!loginForm.form.valid">登&nbsp;录</button>
+        <button ion-button margin-top color="light" outline block (click)="login()" [disabled]="!loginForm.form.valid">登&nbsp;录</button>
       </p>
   </form>
 </ion-content>

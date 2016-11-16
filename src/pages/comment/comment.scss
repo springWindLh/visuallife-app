@@ -1,5 +1,5 @@
-.replyItem{
-  background-color: rgb(64, 49, 49,0.8) !important;
+.commentItem{
+  background-color: rgba(64, 49, 49,0.8) !important;
 }
 
 .voted{
@@ -8,10 +8,6 @@
 
 .vote{
   color: #d1bfa7 !important;
-}
-
-ion-item{
-  background-color: rgba(95, 78, 78, 0.5) !important;
 }
 
 .nameColor{
@@ -24,5 +20,9 @@ ion-item{
 
 .timeColor{
   color: #866667 !important;
+}
+
+.list-md .item-block .item-inner{
+  border-bottom: 1px solid #9e8072;
 }
 

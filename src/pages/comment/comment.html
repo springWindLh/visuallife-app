@@ -9,7 +9,7 @@
 <ion-content>
 <ion-list>
   <div *ngFor="let com of comments">
-    <ion-item>
+    <ion-item class="commentItem">
       <ion-avatar item-left>
         <img [src]="com.user.avatar">
       </ion-avatar>
@@ -23,7 +23,7 @@
         </ion-col>
       </ion-row>
     </ion-item>
-    <ion-item class="replyItem" *ngFor="let reply of com.replies;">
+    <ion-item class="form-bg-color" *ngFor="let reply of com.replies;">
       <ion-avatar item-left>
         <img [src]="reply.sender.avatar">
       </ion-avatar>
@@ -48,7 +48,7 @@
 <ion-footer>
   <ion-toolbar>
     <ion-input type="text" [(ngModel)]="comment.content" placeholder="我想说……"></ion-input>
-    <ion-buttons end>
+    <ion-buttons icon-only end>
       <button [disabled]="comment.content == ''" (click)="saveComment()" ion-button><ion-icon name="send"></ion-icon></button>
     </ion-buttons>
   </ion-toolbar>

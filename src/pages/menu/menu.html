@@ -5,12 +5,12 @@
     </ion-avatar>
     <ion-card>
       <ion-card-header>
-        <ion-item>
+        <ion-item class="menuAvatar">
           <ion-avatar item-left>
             <img [src]="user.avatar">
           </ion-avatar>
           <ion-title>
-            {{user.name}}
+            <span class="menuUserName">{{user.name}}</span>
           </ion-title>
         </ion-item>
       </ion-card-header>

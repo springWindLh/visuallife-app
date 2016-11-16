@@ -18,6 +18,26 @@ ion-content {
   background-color: rgb(64, 49, 49) !important;
 }
 
+ion-input{
+  color: white !important;
+}
+
+ion-spinner * {
+  width: 28px;
+  height: 28px;
+  stroke: #f2eadd !important;
+  fill: #222;
+}
+
+.form-bg-color{
+  background-color: rgba(95, 78, 78, 0.5) !important;
+}
+
+.list-md .item-block .item-inner{
+  border-bottom: 1px solid #aeac87;
+}
+
+
 .toolbar-background {
   background-color: rgb(118, 99, 99) !important;
 }

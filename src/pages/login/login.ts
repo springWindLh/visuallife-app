@@ -5,8 +5,8 @@ import {Component} from "@angular/core";
 import {Http} from "@angular/http";
 import {NavController} from "ionic-angular";
 import {ConfigUtil} from "../../shared/config.util";
-import {HomePage} from "../home/home";
 import {ToastUtil} from "../../shared/toast.util";
+import {MyApp} from "../../app/app.component";
 @Component({
   templateUrl: 'login.html',
   providers: [ToastUtil]
@@ -31,7 +31,7 @@ export class LoginPage {
         localStorage.setItem('nameOrMobile', this.nameOrMobile);
         localStorage.setItem('password', this.password);
         ConfigUtil.user = result.data;
-        this.nav.push(HomePage);
+        this.nav.setRoot(MyApp);
       } else {
         this.toast.show(result.msg);
       }
