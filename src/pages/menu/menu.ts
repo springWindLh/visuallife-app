@@ -10,6 +10,7 @@ import {StoryUserListPage} from "../story/userList/userList";
 import {User} from "../../shared/domain/user";
 import {UserInfoPage} from "../user/info/info";
 import {UserPasswordPage} from "../user/password/password";
+import {LoginPage} from "../login/login";
 @Component({
   selector: 'side-menu',
   templateUrl: 'menu.html'
@@ -41,6 +42,13 @@ export class SideMenu {
         this.menuNav.push(UserPasswordPage);
         this.menu.close();
         break;
+      case 'loginPage':
+        localStorage.setItem('rememberMe', 'false');
+        localStorage.setItem('nameOrMobile', '');
+        localStorage.setItem('password', '');
+        ConfigUtil.user = new User();
+        this.menuNav.push(LoginPage);
+        this.menu.close();
       default:
         break;
     }

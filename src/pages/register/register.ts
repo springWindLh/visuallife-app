@@ -1,5 +1,5 @@
 /**
- * Created by lh on 2016/10/25.
+ * Created by lh on 2016/11/17.
  */
 import {Component} from "@angular/core";
 import {Http} from "@angular/http";
@@ -7,31 +7,28 @@ import {NavController} from "ionic-angular";
 import {ConfigUtil} from "../../shared/config.util";
 import {ToastUtil} from "../../shared/toast.util";
 import {MyApp} from "../../app/app.component";
-import {RegisterPage} from "../register/register";
+import {User} from "../../shared/domain/user";
+import {LoginPage} from "../login/login";
 @Component({
-  templateUrl: 'login.html',
+  templateUrl: 'register.html',
   providers: [ToastUtil]
 })
 
-export class LoginPage {
-  nameOrMobile: string = '';
-  password: string = '';
+export class RegisterPage {
+  user: User = new User();
 
   constructor(private nav: NavController, private http: Http, private toast: ToastUtil) {
 
   }
 
-  login() {
-    this.http.post(ConfigUtil.apiUrl + '/login', {
-      nameOrMobile: this.nameOrMobile,
-      password: this.password
-    }).subscribe((res)=> {
+  register() {
+    this.http.post(ConfigUtil.apiUrl + '/register', this.user).subscribe((res)=> {
       let result = res.json();
       if (result.code) {
-        localStorage.setItem('rememberMe', 'true');
-        localStorage.setItem('nameOrMobile', this.nameOrMobile);
-        localStorage.setItem('password', this.password);
         ConfigUtil.user = result.data;
+        localStorage.setItem('rememberMe', 'true');
+        localStorage.setItem('nameOrMobile', this.user.name);
+        localStorage.setItem('password', this.user.password);
         this.nav.setRoot(MyApp);
       } else {
         this.toast.show(result.msg);
@@ -39,7 +36,7 @@ export class LoginPage {
     });
   }
 
-  toRegisterPage() {
-    this.nav.push(RegisterPage);
+  toLoginPage(){
+    this.nav.setRoot(LoginPage);
   }
 }

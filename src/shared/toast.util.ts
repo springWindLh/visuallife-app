@@ -13,7 +13,7 @@ export class ToastUtil{
      this.toast.create({
        message: msg,
        duration: 1500,
-       position: 'middle'
+       position: 'bottom'
      }).present();
   }
 }

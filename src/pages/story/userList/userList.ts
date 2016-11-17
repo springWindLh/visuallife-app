@@ -1,6 +1,6 @@
 import {Component, ViewChildren} from "@angular/core";
 import {Query} from "../../../shared/service/support/query";
-import {Loading, LoadingController, NavController} from "ionic-angular";
+import {Loading, LoadingController, NavController, AlertController} from "ionic-angular";
 import {ConfigUtil} from "../../../shared/config.util";
 import {StoryService} from "../../../shared/service/story.service";
 import {StoryDetailPage} from "../detail/detail";
@@ -23,7 +23,7 @@ export class StoryUserListPage {
   removeStoryIds = [];
 
   constructor(private storyService: StoryService, private nav: NavController,
-              private load: LoadingController) {
+              private load: LoadingController, private alert: AlertController) {
     this.loading = this.load.create({
       content: 'loading...'
     });
@@ -31,7 +31,7 @@ export class StoryUserListPage {
     this.initData();
   }
 
-  initData(){
+  initData() {
 
     this.storyService.userList(this.query).subscribe(
       data => {
@@ -69,29 +69,45 @@ export class StoryUserListPage {
   }
 
   removeStories() {
-    this.storyService.remove(this.removeStoryIds).subscribe(
-      data=>{
-        this.removeStoryIds.forEach(storyId=>{
-          let index = this.stories.findIndex(story=>story.id==storyId);
-          this.stories.splice(index, 1);
-        });
-        this.removeStoryIds = [];
-        this.storyService.userList(this.query).subscribe(
-          data => {
-            this.stories = this.stories.concat(data.content);
-          },
-          error=>alert(ConfigUtil.networkError)
-        );
-      },
-      error=>alert(ConfigUtil.networkError)
-    );
+    let confirm = this.alert.create({
+      message: '确认删除已选中的条目？',
+      buttons: [
+        {
+          text: '取消',
+          handler: ()=> {
+
+          }
+        }, {
+          text: '删除',
+          handler: ()=> {
+            this.storyService.remove(this.removeStoryIds).subscribe(
+              data=> {
+                this.removeStoryIds.forEach(storyId=> {
+                  let index = this.stories.findIndex(story=>story.id == storyId);
+                  this.stories.splice(index, 1);
+                });
+                this.removeStoryIds = [];
+                this.storyService.userList(this.query).subscribe(
+                  data => {
+                    this.stories = this.stories.concat(data.content);
+                  },
+                  error=>alert(ConfigUtil.networkError)
+                );
+              },
+              error=>alert(ConfigUtil.networkError)
+            );
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 
-  checkboxChange(id,index,box) {
-    if(box.checked) {
+  checkboxChange(id, index, box) {
+    if (box.checked) {
       this.removeStoryIds.push(id);
-    }else{
-      this.removeStoryIds.splice(index,1);
+    } else {
+      this.removeStoryIds.splice(index, 1);
     }
   }
 

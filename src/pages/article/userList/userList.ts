@@ -1,7 +1,7 @@
 import {Component, ViewChildren} from "@angular/core";
 import {ArticleService} from "../../../shared/service/article.service";
 import {Query} from "../../../shared/service/support/query";
-import {Loading, LoadingController, NavController} from "ionic-angular";
+import {Loading, LoadingController, NavController, AlertController} from "ionic-angular";
 import {ConfigUtil} from "../../../shared/config.util";
 import {ArticleDetailPage} from "../detail/detail";
 /**
@@ -23,7 +23,7 @@ export class ArticleUserListPage {
   removeArticleIds = [];
 
   constructor(private articleService: ArticleService, private nav: NavController,
-              private load: LoadingController) {
+              private load: LoadingController,private alert:AlertController) {
     this.loading = this.load.create({
       content: 'loading...'
     });
@@ -68,22 +68,38 @@ export class ArticleUserListPage {
   }
 
   removeArticles() {
-    this.articleService.remove(this.removeArticleIds).subscribe(
-      data=> {
-        this.removeArticleIds.forEach(articleId=> {
-          let index = this.articles.findIndex(article=>article.id == articleId);
-          this.articles.splice(index, 1);
-        });
-        this.removeArticleIds = [];
-        this.articleService.userList(this.query).subscribe(
-          data => {
-            this.articles = this.articles.concat(data.content);
-          },
-          error=>alert(ConfigUtil.networkError)
-        );
-      },
-      error=>alert(ConfigUtil.networkError)
-    );
+    let confirm = this.alert.create({
+      message:'确认删除已选中的条目？',
+      buttons:[
+        {
+          text:'取消',
+          handler:()=>{
+
+          }
+        },{
+          text:'删除',
+          handler:()=>{
+            this.articleService.remove(this.removeArticleIds).subscribe(
+              data=> {
+                this.removeArticleIds.forEach(articleId=> {
+                  let index = this.articles.findIndex(article=>article.id == articleId);
+                  this.articles.splice(index, 1);
+                });
+                this.removeArticleIds = [];
+                this.articleService.userList(this.query).subscribe(
+                  data => {
+                    this.articles = this.articles.concat(data.content);
+                  },
+                  error=>alert(ConfigUtil.networkError)
+                );
+              },
+              error=>alert(ConfigUtil.networkError)
+            );
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 
   checkboxChange(id, index, box) {

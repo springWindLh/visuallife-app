@@ -1,6 +1,8 @@
 <ion-content padding>
+  <div text-center>
+    <img src="../../assets/images/logo_lg.png">
+  </div>
   <form #loginForm="ngForm">
-    <img>
       <ion-item class="form-bg-color">
         <ion-label floating>用户名</ion-label>
         <ion-input type="text" required [(ngModel)]="nameOrMobile" name="nameOrMobile"></ion-input>
@@ -13,4 +15,5 @@
         <button ion-button margin-top color="light" outline block (click)="login()" [disabled]="!loginForm.form.valid">登&nbsp;录</button>
       </p>
   </form>
+  <p text-right><label class="text-gray" (click)="toRegisterPage()">立即注册<ion-icon name="arrow-round-forward"></ion-icon></label> </p>
 </ion-content>

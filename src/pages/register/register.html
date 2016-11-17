@@ -1,0 +1,52 @@
+<ion-content padding>
+  <div text-center>
+    <img src="../../assets/images/logo_lg.png">
+  </div>
+  <form #registerForm="ngForm">
+    <ion-item class="form-bg-color">
+      <ion-label stacked>昵称&nbsp;
+        <span class="error" *ngIf="name.errors && (name.dirty)">请填写昵称，且长度为1~20位</span>
+      </ion-label>
+      <ion-input type="text" #name="ngModel" required [(ngModel)]="user.name" name="name" minlength="1"
+                 maxlength="20"></ion-input>
+    </ion-item>
+    <ion-item class="form-bg-color">
+      <ion-label stacked>密码&nbsp;
+        <span class="error" *ngIf="newPwd.errors && (newPwd.dirty)">请填写密码，且长度为6~12位
+          </span>
+      </ion-label>
+      <ion-input type="password" #newPwd="ngModel" required minlength="6" maxlength="12" [(ngModel)]="user.password"
+                 name="newPassword"></ion-input>
+    </ion-item>
+    <ion-item class="form-bg-color">
+      <ion-label stacked>确认密码&nbsp;
+        <span class="error" *ngIf="confirmPwd.errors && (confirmPwd.dirty)">
+            请填写密码，且长度为6~12位
+          </span>
+        <span class="error" *ngIf="!confirmPwd.errors && user.password != confirmPassword && (confirmPwd.dirty)">
+            两次输入密码不一致
+          </span>
+      </ion-label>
+      <ion-input type="password" #confirmPwd="ngModel" required minlength="6" maxlength="12" [(ngModel)]="confirmPassword"
+                 name="confirmPassword"></ion-input>
+    </ion-item>
+    <ion-item class="form-bg-color">
+      <ion-label stacked>手机号&nbsp;
+        <span class="error" *ngIf="mobile.errors && (mobile.dirty)">请填写正确的手机号</span>
+      </ion-label>
+      <ion-input type="text" #mobile="ngModel" required [(ngModel)]="user.mobile" name="mobile"
+                 pattern="^1(3[0-9]|4[57]|5[0-35-9]|7[01678]|8[0-9])\\d{8}$"></ion-input>
+    </ion-item>
+    <ion-item class="form-bg-color">
+      <ion-label stacked>邮箱&nbsp;
+        <span class="error" *ngIf="email.errors && (email.dirty)">请填写正确的邮箱地址</span>
+      </ion-label>
+      <ion-input type="email" #email="ngModel" required [(ngModel)]="user.email" name="email"
+                 pattern="^[a-zA-Z0-9_\.]+@[a-zA-Z0-9-]+[\.a-zA-Z]+$"></ion-input>
+    </ion-item>
+    <p>
+      <button ion-button margin-top color="light" outline block (click)="register()" [disabled]="!registerForm.form.valid || user.password != confirmPassword">注&nbsp;册</button>
+    </p>
+  </form>
+  <p><label class="text-gray" (click)="toLoginPage()"><ion-icon name="arrow-round-back"></ion-icon>登录</label> </p>
+</ion-content>

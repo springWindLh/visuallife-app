@@ -16,6 +16,7 @@ import {SideMenu} from "../pages/menu/menu";
 import {StoryUserListPage} from "../pages/story/userList/userList";
 import {UserInfoPage} from "../pages/user/info/info";
 import {UserPasswordPage} from "../pages/user/password/password";
+import {RegisterPage} from "../pages/register/register";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {UserPasswordPage} from "../pages/user/password/password";
     SafeHtmlPipe,ShortTimePipe,DateTimePipe,
     LoginPage,HomePage,ArticleListPage,ArticleDetailPage,
     StoryListPage,StoryDetailPage,CommentPage,ArticleUserListPage,
-    SideMenu,StoryUserListPage,UserInfoPage,UserPasswordPage
+    SideMenu,StoryUserListPage,UserInfoPage,UserPasswordPage,
+    RegisterPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -33,7 +35,8 @@ import {UserPasswordPage} from "../pages/user/password/password";
     MyApp,
     LoginPage,HomePage,ArticleListPage,ArticleDetailPage,
     StoryListPage,StoryDetailPage,CommentPage,ArticleUserListPage,
-    SideMenu,StoryUserListPage,UserInfoPage,UserPasswordPage
+    SideMenu,StoryUserListPage,UserInfoPage,UserPasswordPage,
+    RegisterPage
   ],
   providers: []
 })
