@@ -16,6 +16,7 @@ import {LoginPage} from "../login/login";
 
 export class RegisterPage {
   user: User = new User();
+  confirmPassword: string = '';
 
   constructor(private nav: NavController, private http: Http, private toast: ToastUtil) {
 

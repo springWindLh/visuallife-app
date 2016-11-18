@@ -7,7 +7,7 @@
     <div class="avatarDiv" padding-left>
       <img class="infoAvatar" width="80" height="80" [src]="user.avatar">
       <p padding-top>
-        <button ion-button type="button" small outline color="light">更换头像</button>
+        <button ion-button type="button" (click)="changeAvatar()" small outline color="light">更换头像</button>
       </p>
     </div>
     <ion-item class="form-bg-color">
