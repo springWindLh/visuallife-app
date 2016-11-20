@@ -4,12 +4,12 @@
 </ion-header>
 <ion-content padding>
   <form #infoForm="ngForm">
-    <div class="avatarDiv" padding-left>
-      <img class="infoAvatar" width="80" height="80" [src]="user.avatar">
-      <p padding-top>
-        <button ion-button type="button" (click)="changeAvatar()" small outline color="light">更换头像</button>
-      </p>
-    </div>
+    <!--<div class="avatarDiv" padding-left>-->
+      <!--<img class="infoAvatar" width="80" height="80" [src]="user.avatar">-->
+      <!--<p padding-top>-->
+        <!--<button ion-button type="button" (click)="changeAvatar()" small outline color="light">更换头像</button>-->
+      <!--</p>-->
+    <!--</div>-->
     <ion-item class="form-bg-color">
       <ion-label stacked>昵称&nbsp;
         <span class="error" *ngIf="name.errors && (name.dirty)">请填写昵称，且长度为1~20位</span>

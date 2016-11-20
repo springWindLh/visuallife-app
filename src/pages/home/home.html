@@ -1,19 +1,21 @@
 <ion-header>
   <ion-navbar [hideBackButton]="true">
-    <button ion-button icon-only menuToggle><ion-icon name="menu"></ion-icon></button>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>首页</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="card-background-page">
   <ion-card (click)="toArticleListPage()">
-    <img src="../../assets/images/home_article_bg.jpg">
+    <img height="265" src="../../assets/images/article_bg.jpg">
     <div class="card-title">文章</div>
     <div class="card-subtitle">article</div>
   </ion-card>
 
   <ion-card (click)="toStoryListPage()">
-    <img src="../../assets/images/home_article_bg.jpg">
+    <img height="265" src="../../assets/images/story_bg.jpg">
     <div class="card-title">故事</div>
     <div class="card-subtitle">story</div>
   </ion-card>

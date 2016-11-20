@@ -3,7 +3,7 @@
  */
 import {Component} from "@angular/core";
 import {Http} from "@angular/http";
-import {NavController} from "ionic-angular";
+import {NavController, LoadingController, Loading} from "ionic-angular";
 import {ConfigUtil} from "../../shared/config.util";
 import {ToastUtil} from "../../shared/toast.util";
 import {MyApp} from "../../app/app.component";
@@ -16,12 +16,17 @@ import {RegisterPage} from "../register/register";
 export class LoginPage {
   nameOrMobile: string = '';
   password: string = '';
+  loading: Loading;
 
-  constructor(private nav: NavController, private http: Http, private toast: ToastUtil) {
+  constructor(private nav: NavController, private http: Http, private toast: ToastUtil, private load: LoadingController) {
 
   }
 
   login() {
+    this.loading = this.load.create({
+      content: '登录中...'
+    });
+    this.loading.present();
     this.http.post(ConfigUtil.apiUrl + '/login', {
       nameOrMobile: this.nameOrMobile,
       password: this.password
@@ -32,6 +37,7 @@ export class LoginPage {
         localStorage.setItem('nameOrMobile', this.nameOrMobile);
         localStorage.setItem('password', this.password);
         ConfigUtil.user = result.data;
+        this.loading.dismissAll();
         this.nav.setRoot(MyApp);
       } else {
         this.toast.show(result.msg);
