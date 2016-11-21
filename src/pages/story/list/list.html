@@ -6,7 +6,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-card class="bg-white" *ngFor="let story of stories" (click)="toStoryDetailPage(story.id)">
+  <ion-card class="bg-white" [ngStyle]="{'box-shadow': randomBottomColor()}" *ngFor="let story of stories" (click)="toStoryDetailPage(story.id)">
     <img *ngIf="story.picture != null" [src]="story.picture">
 
     <ion-card-content>

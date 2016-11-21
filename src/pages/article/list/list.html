@@ -6,7 +6,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-card class="bg-white" *ngFor="let article of articles" (click)="toArticleDetailPage(article.id)">
+  <ion-card class="bg-white" [ngStyle]="{'box-shadow': randomBottomColor()}" *ngFor="let article of articles" (click)="toArticleDetailPage(article.id)">
     <img *ngIf="article.coverImg != null" [src]="article.coverImg">
 
     <ion-card-content>

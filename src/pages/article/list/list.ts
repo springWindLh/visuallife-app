@@ -67,4 +67,8 @@ export class ArticleListPage {
       refresher.complete();
     }, 1000);
   }
+
+  randomBottomColor(){
+    return ConfigUtil.getRandomBottomStyle();
+  }
 }
