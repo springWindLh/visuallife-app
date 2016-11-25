@@ -29,13 +29,13 @@ export class RegisterPage {
     });
     this.loading.present();
     this.http.post(ConfigUtil.apiUrl + '/register', this.user).subscribe((res)=> {
+      this.loading.dismissAll();
       let result = res.json();
       if (result.code) {
         ConfigUtil.user = result.data;
         localStorage.setItem('rememberMe', 'true');
         localStorage.setItem('nameOrMobile', this.user.name);
         localStorage.setItem('password', this.user.password);
-        this.loading.dismissAll();
         this.nav.setRoot(MyApp);
       } else {
         this.toast.show(result.msg);

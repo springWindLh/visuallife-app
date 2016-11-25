@@ -28,6 +28,7 @@ export class MyApp {
         password: this.password
       }).subscribe(
         res=> {
+          Splashscreen.hide();
           let result = res.json();
           if (result.code) {
             ConfigUtil.user = result.data;

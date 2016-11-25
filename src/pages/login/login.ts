@@ -31,13 +31,13 @@ export class LoginPage {
       nameOrMobile: this.nameOrMobile,
       password: this.password
     }).subscribe((res)=> {
+      this.loading.dismissAll();
       let result = res.json();
       if (result.code) {
         localStorage.setItem('rememberMe', 'true');
         localStorage.setItem('nameOrMobile', this.nameOrMobile);
         localStorage.setItem('password', this.password);
         ConfigUtil.user = result.data;
-        this.loading.dismissAll();
         this.nav.setRoot(MyApp);
       } else {
         this.toast.show(result.msg);
